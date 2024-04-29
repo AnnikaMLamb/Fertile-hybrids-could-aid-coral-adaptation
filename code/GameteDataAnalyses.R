@@ -1,5 +1,5 @@
 ##R script for analyses of hybrid and purebred egg count and size data
-#Data obtained using methods described in manuscript - Fertile hybrids could aid coral adaptation - methods
+#Data obtained using methods described in manuscript - Fertile hybrids could aid coral adaptation
 #Written by Annika Lamb 
 
 ##Load functions and packages
