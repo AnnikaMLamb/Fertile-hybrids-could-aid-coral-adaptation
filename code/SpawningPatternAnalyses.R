@@ -1,6 +1,5 @@
 ##R script for analyses of hybrid and purebred spawning patterns
-#Data obtained using methods described in manuscript -  Fertile hybrids could aid coral adaptation - methods
-#Written by Annika Lamb 
+#Data obtained using methods described in manuscript -  Fertile hybrids could aid coral adaptation
 
 ##Load functions and packages
 #Summary function
