@@ -4,7 +4,7 @@
 > Data is avaiable in .csv format and code is written in R.
 
 # Data
-Repository contains six datasets with data on gametes, gamete fertilisation, and spawning behaviour of hybrid and purbred corals.
+Repository contains six datasets with data on gametes, gamete fertilisation, and spawning behaviour of hybrid and purebred corals.
 
 ## Egg count data
 >EggCountData_2020-2021.csv
@@ -71,7 +71,7 @@ Repository contains six datasets with data on gametes, gamete fertilisation, and
 ## Spawning percentages
 >SpawningPercentages.csv
 >
->Percentage of hybrid and purbred corals spawning on each night of spawning observations in 2021. Dataset comprised of:
+>Percentage of hybrid and purebred corals spawning on each night of spawning observations in 2021. Dataset comprised of:
 - Cross: hybrid (LT) or purebred (LL) experimental group
 + Date: date of observations
 * Percentage: percentage of colonies that spawned
@@ -95,7 +95,7 @@ Repository contains six datasets with data on gametes, gamete fertilisation, and
 - Date: date of observation
 
 # Code
-Repository contains three scripts for analysing data on gametes, gamete fertilisation, and spawning behaviour of hybrid and purbred corals.
+Repository contains three scripts for analysing data on gametes, gamete fertilisation, and spawning behaviour of hybrid and purebred corals.
 ## Gamete data analyses
 >R code for analysing hybrid and purebred gamete data.
 >
