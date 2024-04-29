@@ -1,11 +1,11 @@
-#Fertile corals could aid coral adaptation
+# Fertile corals could aid coral adaptation
 This repository contains the code and data required to reproduce analyses conducted by Annika Lamb (AIMS) for the manuscript "Fertile corals could aid coral adaptation".
 Data is avaiable in .csv format and code is written in R.
 
-#Data
+# Data
 Repository contains six datasets with data on gametes, gamete fertilisation, and spawning behaviour of hybrid and purbred corals.
 
-##Egg count data
+## Egg count data
 EggCountData_2020-2021.csv
 Number of eggs in the mesentaries of dissected hybrid and purebred corals. Dataset comprised of:
 - SampleID: unique colony ID number
@@ -19,7 +19,7 @@ Number of eggs in the mesentaries of dissected hybrid and purebred corals. Datas
 * Count: number of eggs per mesentary
 - Year: sampling year
 
-##Egg size data 
+## Egg size data 
 EggSize_2020-2021.csv
 Size of eggs in the mesentaries of dissected hybrid and purebred corals. Dataset comprised of:
 - SampleID: unique colony ID number
@@ -36,7 +36,7 @@ Size of eggs in the mesentaries of dissected hybrid and purebred corals. Dataset
 * D2: diameter perpendicular to longest diameter (mm)
 - AverageDiameter: mean of D1 and D2
 
-##Fertilisation data
+## Fertilisation data
 FertilisationData.csv
 Fertilisation success of hybrid and purebred gametes. Dataset comprised of:
 - Combo: IDs of cross-fertilised (X) colonies
@@ -53,7 +53,7 @@ Fertilisation success of hybrid and purebred gametes. Dataset comprised of:
 - Replicate: fertilisation reaction replicate of duplicates
 + NightOf: fertilisation date
 
-##Spawning data
+## Spawning data
 SpawningData.csv
 Spawning observations. Dataset comprised of:
 - Coral: unique colony ID number
@@ -63,7 +63,7 @@ Spawning observations. Dataset comprised of:
 - SpawningDate: date of observation
 - Spawned: colony observed (Y) to spawn or not (N) spawn.
 
-##Spawning percentages
+## Spawning percentages
 SpawningPercentages.csv
 Spawning observations. Dataset comprised of:
 - Coral: unique colony ID number
