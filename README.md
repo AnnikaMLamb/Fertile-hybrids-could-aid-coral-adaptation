@@ -1,13 +1,15 @@
 # Fertile corals could aid coral adaptation
-This repository contains the code and data required to reproduce analyses conducted by Annika Lamb (AIMS) for the manuscript "Fertile corals could aid coral adaptation".
-Data is avaiable in .csv format and code is written in R.
+> This repository contains the code and data required to reproduce analyses conducted by Annika Lamb (AIMS) for the manuscript "Fertile corals could aid coral adaptation".
+>
+> Data is avaiable in .csv format and code is written in R.
 
 # Data
 Repository contains six datasets with data on gametes, gamete fertilisation, and spawning behaviour of hybrid and purbred corals.
 
 ## Egg count data
-EggCountData_2020-2021.csv
-Number of eggs in the mesentaries of dissected hybrid and purebred corals. Dataset comprised of:
+>EggCountData_2020-2021.csv
+>
+>Number of eggs in the mesentaries of dissected hybrid and purebred corals. Dataset comprised of:
 - SampleID: unique colony ID number
 + Cross: hybrid (LT) or purebred (LL) experimental group
 * Tank: holding tank ID
@@ -20,8 +22,9 @@ Number of eggs in the mesentaries of dissected hybrid and purebred corals. Datas
 - Year: sampling year
 
 ## Egg size data 
-EggSize_2020-2021.csv
-Size of eggs in the mesentaries of dissected hybrid and purebred corals. Dataset comprised of:
+>EggSize_2020-2021.csv
+>
+>Size of eggs in the mesentaries of dissected hybrid and purebred corals. Dataset comprised of:
 - SampleID: unique colony ID number
 + Cross: hybrid (LT) or purebred (LL) experimental group
 * Tank: holding tank ID
