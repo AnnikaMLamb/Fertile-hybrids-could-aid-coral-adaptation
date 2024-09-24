@@ -2,6 +2,8 @@
 > This repository contains the code and data required to reproduce analyses conducted by Annika Lamb (AIMS) for the manuscript "Fertile corals could aid coral adaptation".
 >
 > Data is avaiable in .csv format and code is written in R.
+>
+> Note that one study species is referred to at Acropora tenuis throughout the data and code but Acropora kenti (updated taxonomy) throughout the manuscript. 
 
 # Data
 Repository contains six datasets with data on gametes, gamete fertilisation, and spawning behaviour of hybrid and purebred corals.
@@ -20,6 +22,7 @@ Repository contains six datasets with data on gametes, gamete fertilisation, and
 + Mesentary: replicate mesentary
 * Count: number of eggs per mesentary
 - Year: sampling year
++ Treatment: ambient or elevated conditions that the corals were exposed to in the first 28 weeks of their lives.
 
 ## Egg size data 
 >EggSize_2020-2021.csv
@@ -38,6 +41,7 @@ Repository contains six datasets with data on gametes, gamete fertilisation, and
 + D1: longest diameter (mm)
 * D2: diameter perpendicular to longest diameter (mm)
 - AverageDiameter: mean of D1 and D2
++ Treatment: ambient or elevated conditions that the corals were exposed to in the first 28 weeks of their lives.
 
 ## Fertilisation data
 >FertilisationData.csv
@@ -58,7 +62,7 @@ Repository contains six datasets with data on gametes, gamete fertilisation, and
 + NightOf: fertilisation date
 
 ## Spawning data
->SpawningData.csv
+>SpawningData_ByNight.csv
 >
 >Spawning observations of hybrid and purebred corals. Dataset comprised of:
 - Coral: unique colony ID number
@@ -67,6 +71,7 @@ Repository contains six datasets with data on gametes, gamete fertilisation, and
 - System: holding system ID
 + SpawningDate: date of observation
 * Spawned: colony observed (Y) to spawn or not (N) spawn.
+- Treatment: ambient or elevated conditions that the corals were exposed to in the first 28 weeks of their lives.
 
 ## Spawning percentages
 >SpawningPercentages.csv
