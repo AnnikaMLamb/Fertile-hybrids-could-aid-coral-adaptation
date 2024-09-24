@@ -1,5 +1,5 @@
 ##R script for analyses of hybrid and purebred spawning patterns
-#Data obtained using methods described in manuscript -  Fertile hybrids could aid coral adaptation
+#Data obtained using methods described in manuscript -  Fertile hybrids could aid coral adaptation - methods
 #Written by Annika Lamb 
 
 ##Load functions and packages
@@ -84,8 +84,19 @@ Spawn_ByNight$Coral<-as.factor(Spawn_ByNight$Coral)
 str(Spawn_ByNight)
 
 ##Generalised linear mixed effects model
-#Model
-spawn_mod1<-glmer(Spawned ~ Cross + (1|System/Coral) + (1|SpawningDate), data = Spawn_ByNight, family = binomial())
+#Model including treatment
+Spawn_ByNight_Complete <- Spawn_ByNight %>% drop_na(Treatment)
+spawn_mod1<-glmer(Spawned ~ Cross + Treatment + (1|System/Coral) + (1|SpawningDate) , data = Spawn_ByNight_Complete, family = binomial())
+summary(spawn_mod1)  
+spawn_mod2<-glmer(Spawned ~ Cross * Treatment + (1|System/Coral) + (1|SpawningDate) , data = Spawn_ByNight_Complete, family = binomial())
+summary(spawn_mod2) 
+spawn_mod3<-glmer(Spawned ~ Cross + (1|System/Coral) + (1|SpawningDate), data = Spawn_ByNight_Complete, family = binomial())
+summary(spawn_mod3)  
+anova(spawn_mod1, spawn_mod2)
+anova(spawn_mod1, spawn_mod3)
+anova(spawn_mod2, spawn_mod3)
+#Model including treatment did not fit the model better than the model that did not. Re-run model 3 on total dataset.
+spawn_mod1<-glmer(Spawned ~ Cross + (1|System/Coral) + (1|SpawningDate)+(1|Treatment), data = Spawn_ByNight, family = binomial())
 #Summary
 summary(spawn_mod1)
 
@@ -105,7 +116,7 @@ ggplot(SpawningPercentages, aes(fill=Cross, y=Percentage, x=Date)) +
         legend.text = element_text(size = 14), legend.title = element_text(size = 14))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
-  scale_fill_manual(name="Parental group",labels = expression('LL'[F1], 'LT'[F1]),  values = c("salmon","turquoise3"))
+  scale_fill_manual(name="Parental group",labels = expression('LL'[F1], 'LK'[F1]),  values = c("salmon","turquoise3"))
 
 
 ###Spawning and setting time analyses
@@ -125,7 +136,7 @@ summary(Spawning_mod1)
 Spawning_ByCross<-summarySE(Spawning, measurevar="SpawningMinutes", groupvars=c("Cross"),conf.interval=0.95)
 Spawning_ByCross
 #Graphic
-ggplot(Spawning,aes(x = Cross, y = SpawningMinutes))+geom_boxplot()+scale_x_discrete(labels=expression('LL'[F1],'LT'[F1]))+
+ggplot(Spawning,aes(x = Cross, y = SpawningMinutes))+geom_boxplot()+scale_x_discrete(labels=expression('LL'[F1],'LK'[F1]))+
   ylim(0, 185) + ylab("Minutes after sunset") + xlab("F1 parental group")+
   theme(axis.text.x = element_text(size = 14), axis.title.x = element_text(size = 16),
         axis.text.y = element_text(size = 14), axis.title.y = element_text(size = 16),
@@ -133,3 +144,4 @@ ggplot(Spawning,aes(x = Cross, y = SpawningMinutes))+geom_boxplot()+scale_x_disc
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
   geom_text(data=Spawning_ByCross, (aes(x=factor(Cross), y=132, label=paste("n =",N))))
+
