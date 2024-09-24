@@ -1,5 +1,5 @@
 ##R script for analyses of hybrid and purebred egg count and size data
-#Data obtained using methods described in manuscript - Fertile hybrids could aid coral adaptation
+#Data obtained using methods described in manuscript - Fertile hybrids could aid coral adaptation - methods
 #Written by Annika Lamb 
 
 ##Load functions and packages
@@ -68,6 +68,7 @@ library(tidyverse)
 library(viridis)
 library(emmeans)
 library(glmmTMB)
+library(cowplot)
 
 
 ### Analysis of egg counts
@@ -90,17 +91,18 @@ str(EggCount)
 #Remove missing data
 EggCount_complete <-EggCount %>% drop_na(Count) 
 EggCount_complete <- EggCount[!is.na(EggCount$Count), ]
+EggCount_treatment <- EggCount[!is.na(EggCount$Treatment), ]
 
 ##Zero-inflated GLMM of egg count data
-#Generate model
-EggCount_glmmTMB <- glmmTMB(Count~Cross * Year + (1|System/SampleID/UniPolyp) , family = poisson(),data =EggCount_complete,ziformula = ~ Cross * Year)
-#Summarise findings
-summary(EggCount_glmmTMB)
+#Generate model, accounting for random variation due to Chan et al. treatment
+EggCount_glmmTMB_treatment <- glmmTMB(Count~Cross * Year + (1|System/SampleID/UniPolyp) +(1|Treatment), family = poisson(),data =EggCount_treatment,ziformula = ~Cross * Year )
+summary(EggCount_glmmTMB_treatment)
 #Compare Egg counts amongst years and experimental groups (LLF1 and LTF1)
-leastsquare = lsmeans(EggCount_glmmTMB,
+leastsquare = lsmeans(EggCount_glmmTMB_treatment,
                       pairwise ~ Cross|Year,
                       adjust = "tukey")
 leastsquare
+
 #Summary statistics
 tapply(EggCount_complete$Count, EggCount_complete$Cross, median)
 tapply(EggCount_complete$Count, EggCount_complete$Cross, range)
@@ -108,21 +110,24 @@ tapply(EggCount_complete$Count, EggCount_complete$Year, median)
 tapply(EggCount_complete$Count, EggCount_complete$Year, range)
 
 ##Figure
-EggCount %>% ggplot(aes(x=Cross, y=Count)) +
+EggCount_plot<-EggCount %>% ggplot(aes(x=Cross, y=Count)) +
   geom_boxplot() +
-  scale_x_discrete(labels=expression('LL'[F1],'LT'[F1]))+
+  scale_x_discrete(labels=expression('LL'[F1],'LK'[F1]))+
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   scale_y_continuous(limits = c(0,11))+
   geom_jitter(aes(colour=Cross),size=1, alpha=0.9)  +
   theme(axis.text.x = element_text(size = 14), axis.title.x = element_text(size = 16),
         axis.text.y = element_text(size = 14), axis.title.y = element_text(size = 16),
-        legend.text = element_text(size = 14), legend.title = element_text(size = 14),
+        legend.position = "none",
+        plot.title = element_text(size=16),
         strip.text.x = element_text(size = 14))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
   xlab("Parental group") +
+  ggtitle("A")+
   ylab("Number of oocytes") +
   facet_wrap(~ Year, nrow = 2, scales = "free")
+EggCount_plot
 
 ###Analysis of egg sizes
 ##Import egg size data
@@ -155,7 +160,7 @@ tapply(Size_Y2020$AverageDiameter, Size_Y2020$Cross, range)
 
 ##Linear mixed effects modelling
 #Build model
-EggSize_lmm <- lmer(AverageDiameter ~Cross * Year + (1|System/Sample/UniPolyp/UniMesentary), data =EggSize)
+EggSize_lmm <- lmer(AverageDiameter ~ Cross * Year +(1|System/Sample/UniPolyp/UniMesentary)+(1|Treatment), data =EggSize)
 #Summarise model
 summary(EggSize_lmm)
 #Compare egg sizes amongst years and experimental groups (LLF1 and LTF1)
@@ -165,19 +170,25 @@ leastsquare = lsmeans(EggSize_lmm,
 leastsquare$contrasts
 
 #Graphic
-EggSize %>% ggplot(aes(x=Cross, y=AverageDiameter)) +
+EggSize_plot<-EggSize %>% ggplot(aes(x=Cross, y=AverageDiameter)) +
   geom_boxplot() +
-  scale_x_discrete(labels=expression('LL'[F1],'LT'[F1]))+
+  scale_x_discrete(labels=expression('LL'[F1],'LK'[F1]))+
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   scale_y_continuous(limits = c(0,0.4))+
   geom_jitter(aes(colour=Cross),size=1, alpha=0.9)  +
   theme(axis.text.x = element_text(size = 14), axis.title.x = element_text(size = 16),
         axis.text.y = element_text(size = 14), axis.title.y = element_text(size = 16),
-        legend.text = element_text(size = 14), legend.title = element_text(size = 14),
+        legend.position = "none",
+        plot.title = element_text(size=16),
         strip.text.x = element_text(size = 14))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
   xlab("Parental group") +
+  ggtitle("B")+
   ylab("Average oocyte diameter (mm)") +
   facet_wrap(~ Year, nrow = 2, scales = "free")
+EggSize_plot
 
+#Combined gamete plot
+CombinedPlot<-plot_grid(EggCount_plot, EggSize_plot, ncol = 2, rel_widths = c(1, 1))
+CombinedPlot
