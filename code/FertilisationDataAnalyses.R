@@ -1,5 +1,5 @@
 ##R script for analyses of hybrid and purebred gamete fertilisation data
-#Data obtained using methods described in manuscript -  Fertile hybrids could aid coral adaptation
+#Data obtained using methods described in manuscript -  Fertile hybrids could aid coral adaptation - methods
 #Written by Annika Lamb 
 
 ##Load functions and packages
@@ -88,7 +88,7 @@ Fert_ByCross<-summarySE(Fert_crosses, measurevar="Percentage", groupvars=c("Cros
 Fert_ByCross
 
 #Plot
-ggplot(Fert_crosses,aes(x = Cross, y = Percentage))+geom_boxplot()+scale_x_discrete(labels=expression('LL'[F1]*'XLL'[F1],'LL'[F1]*'XLT'[F1], 'LT'[F1]*'XLL'[F1], 'LT'[F1]*'XLT'[F1]))+
+ggplot(Fert_crosses,aes(x = Cross, y = Percentage))+geom_boxplot()+scale_x_discrete(labels=expression('LL'[F1]*'XLL'[F1],'LL'[F1]*'XLK'[F1], 'LK'[F1]*'XLL'[F1], 'LK'[F1]*'XLK'[F1]))+
   ylim(0, 100) + ylab("Percentage fertilised") + xlab("Cross")+
   theme(axis.text.x = element_text(size = 14), axis.title.x = element_text(size = 16),
         axis.text.y = element_text(size = 14), axis.title.y = element_text(size = 16),
@@ -100,7 +100,7 @@ ggplot(Fert_crosses,aes(x = Cross, y = Percentage))+geom_boxplot()+scale_x_discr
 
 ## Bayesian generalised linear mixed effects model
 #Build model
-fert.form <- bf(FertilisedEggCount ~ Cross + (1|Mother) + (1|Father) + (1|SpecificCombo),
+fert.form <- bf(FertilisedEggCount ~ Cross + (1|Mother) + (1|Father) + (1|Mother:Father),
                 family=poisson)
 #Run model
 Fert.brms <- brm(fert.form, data=Fert_crosses,
